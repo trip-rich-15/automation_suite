@@ -1,6 +1,6 @@
 # SauceDemo - E2E Test Automation (Playwright + Python + BDD)
 
-![E2E Tests](https://github.com/richardtripodi15-cmyk/saucedemo-e2e-automation/actions/workflows/e2e-tests.yml/badge.svg)
+![E2E Tests](https://github.com/trip-rich-15/automation_suite/actions/workflows/e2e-tests.yml/badge.svg)
 
 End-to-end test suite for [SauceDemo](https://www.saucedemo.com), a demo online store made for testing practice.
 
@@ -74,7 +74,19 @@ pytest --html=reports/report.html --self-contained-html
 
 ## Results
 
-To be completed after execution.
+Execution on 2026-10-28 against saucedemo.com: 19 tests, 16 passed and 3 expected failures (known defects).
+
+| Bug | Title | Severity |
+| --- | --- | --- |
+| [SD-01](bugs/SD-01.md) | All products show the same image for problem_user | Minor |
+| [SD-02](bugs/SD-02.md) | Product sorting does not work for problem_user | Minor |
+| [SD-03](bugs/SD-03.md) | problem_user cannot continue from checkout step one | Critical |
+
+To see the real error of the known defects, run them without the expected failure mark:
+
+```bash
+pytest tests/test_known_defects.py --runxfail
+```
 
 ## Related projects
 
