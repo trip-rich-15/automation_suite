@@ -1,6 +1,4 @@
-# SauceDemo - E2E Test Automation (Playwright + Python + BDD)
-
-![E2E Tests](https://github.com/trip-rich-15/automation_suite/actions/workflows/e2e-tests.yml/badge.svg)
+# SauceDemo - E2E Test Automation
 
 End-to-end test suite for [SauceDemo](https://www.saucedemo.com), a demo online store made for testing practice.
 
@@ -16,15 +14,15 @@ The scenarios are written in Gherkin and run with pytest-bdd and Playwright. The
 
 ## Project structure
 
-```
-features/      Gherkin scenarios, one file per feature
-pages/         Page Object Model: one class per page
-tests/         Step definitions
-  conftest.py  Page object fixtures and steps shared by several features
-conftest.py    Hook that marks known defects as expected failures
-pytest.ini     Base URL, test paths and evidence options
-.github/       CI pipeline
-```
+|Directory|Description|
+|:--:|:--:|
+|features/|Gherkin scenarios, one file per feature|
+|pages/|Page Object Model: one class per page|
+|tests/|Step definitions|
+|tests/conftest.py|Page object fixtures and steps shared by several features|
+|conftest.py|Hook that marks known defects as expected failures|
+|pytest.ini|Base URL, test paths and evidence options|
+|.github/|CI pipeline|
 
 The page objects keep the locators and actions of each page in one place. The step definitions only call the page objects, so if the page changes, the fix is made in one file.
 
@@ -42,35 +40,16 @@ In total there are 19 tests: 16 for the expected behavior and 3 for known defect
 
 SauceDemo has a user called problem_user with intentional defects. These scenarios check the correct behavior, so they fail. They are tagged in the feature file with @known_bug_ and the bug ID.
 
-The hook in conftest.py marks these scenarios as expected failures (xfail) with strict mode:
+The hook in conftest.py marks these scenarios as expected failures (or xfail) with strict mode:
 
 - While the defect exists, the test fails and the pipeline stays green.
-- If the defect is fixed, the test passes and the pipeline fails, so the scenario must be reviewed.
+- If the defect is fixed, the test passes and the pipeline fails, so the scenario must be reviewed or restructured test.
 
 The same approach is used in my API testing project, with the known defects kept visible in the report.
 
 ## Evidence of failures
 
 When a test fails, Playwright saves a screenshot, a video and a trace in the test-results folder. In GitHub Actions these files are uploaded as artifacts, together with the HTML report of each browser.
-
-A trace can be opened with:
-
-```bash
-playwright show-trace test-results/<test-folder>/trace.zip
-```
-
-## How to run
-
-```bash
-pip install -r requirements.txt
-playwright install chromium firefox
-
-pytest                                  # all tests in Chromium
-pytest --browser firefox                # all tests in Firefox
-pytest --headed --slowmo 500            # see the browser while the tests run
-pytest tests/test_checkout.py           # only one feature
-pytest --html=reports/report.html --self-contained-html
-```
 
 ## Results
 
@@ -81,12 +60,6 @@ Execution on 2026-10-28 against saucedemo.com: 19 tests, 16 passed and 3 expecte
 | [SD-01](bugs/SD-01.md) | All products show the same image for problem_user | Minor |
 | [SD-02](bugs/SD-02.md) | Product sorting does not work for problem_user | Minor |
 | [SD-03](bugs/SD-03.md) | problem_user cannot continue from checkout step one | Critical |
-
-To see the real error of the known defects, run them without the expected failure mark:
-
-```bash
-pytest tests/test_known_defects.py --runxfail
-```
 
 ## Related projects
 
