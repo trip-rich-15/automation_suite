@@ -40,10 +40,10 @@ In total there are 19 tests: 16 for the expected behavior and 3 for known defect
 
 SauceDemo has a user called problem_user with intentional defects. These scenarios check the correct behavior, so they fail. They are tagged in the feature file with @known_bug_ and the bug ID.
 
-The hook in conftest.py marks these scenarios as expected failures (or xfail) with strict mode:
+The hook in conftest.py marks these scenarios as expected failures (xfail) with strict mode:
 
 - While the defect exists, the test fails and the pipeline stays green.
-- If the defect is fixed, the test passes and the pipeline fails, so the scenario must be reviewed or restructured test.
+- If the defect is fixed, the test passes and the pipeline fails, so the scenario must be reviewed and updated.
 
 The same approach is used in my API testing project, with the known defects kept visible in the report.
 
@@ -63,8 +63,8 @@ Execution on 2026-10-28 against saucedemo.com: 19 tests, 16 passed and 3 expecte
 
 ## Related projects
 
-- [Manual testing on ParaBank](https://github.com/richardtripodi15-cmyk/manual_test_case)
-- [API testing on Restful-Booker](https://github.com/richardtripodi15-cmyk/booker-api-testing)
+- [Manual testing on ParaBank](https://github.com/trip-rich-15/manual_test_case)
+- [API testing on Restful-Booker](https://github.com/trip-rich-15/booker-api-testing)
 
 ## Author
 
